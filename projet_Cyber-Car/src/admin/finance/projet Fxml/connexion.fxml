@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.finance.connectController">
+   <left>
+      <TitledPane collapsible="false" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="859.0" snapToPixel="false" text="CONNEXION CYBERCAR" BorderPane.alignment="CENTER">
+         <content>
+            <Pane prefHeight="512.0" prefWidth="721.0">
+               <children>
+                  <ImageView fitHeight="592.0" fitWidth="534.0" layoutY="-2.0">
+                     <image>
+                        <Image url="@figma/Left%20Content.png" />
+                     </image>
+                  </ImageView>
+                  <Text fontSmoothingType="LCD" layoutX="584.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bonjour ">
+                     <font>
+                        <Font name="Poppins Regular" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="584.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenu">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="667.0" layoutY="546.0">
+                     <image>
+                        <Image url="@figma/Standard%20Collection%203.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="704.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WOLOZ GROUP BY cryptosoft">
+                     <font>
+                        <Font name="Arial Unicode MS" size="10.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="login" floatText="adresse Email" layoutX="592.0" layoutY="239.0" onDragDetected="#loginValue" />
+                  <TextField fx:id="mdp" floatText="mot de passe" layoutX="592.0" layoutY="275.0" onDragDetected="#mdpValue" prefHeight="31.0" prefWidth="160.0" />
+                  <ImageView fitHeight="24.0" fitWidth="21.0" layoutX="566.0" layoutY="249.0">
+                     <image>
+                        <Image url="@figma/codicon_mail.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="23.0" fitWidth="24.0" layoutX="565.0" layoutY="283.0">
+                     <image>
+                        <Image url="@figma/bx_bxs-lock-alt.png" />
+                     </image>
+                  </ImageView>
+                  <JFXButton fx:id="connect" layoutX="632.0" layoutY="334.0" onAction="#OnConnect" ripplerFill="#ab1c1c" style="-fx-border-color: black;" text="Connexion " viewOrder="2.0" />
+                  <ImageView fitHeight="118.0" fitWidth="126.0" layoutX="622.0" layoutY="412.0">
+                     <image>
+                        <Image url="@voiture/Car-Wheel-PNG-File.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="76.0" fitWidth="200.0" layoutX="572.0" layoutY="71.0">
+                     <image>
+                        <Image url="@voiture/Tesla-Car-PNG-Pic.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </content>
+      </TitledPane>
+   </left>
+</BorderPane>
