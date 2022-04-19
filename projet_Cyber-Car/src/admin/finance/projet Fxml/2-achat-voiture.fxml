@@ -100,7 +100,7 @@
                               <Image url="@figma/Rectangle%2039267.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="VRenault" fitHeight="277.0" fitWidth="409.0" layoutX="310.0" layoutY="-2.0">
+                        <ImageView fx:id="VRenault" fitHeight="277.0" fitWidth="409.0" layoutX="234.0" layoutY="-10.0">
                            <image>
                               <Image url="@voiture/Renault-PNG-Pic.png" />
                            </image>
@@ -228,12 +228,12 @@
                               <Font name="Arial Rounded MT Bold" size="16.0" />
                            </font>
                         </Text>
-                        <ImageView fx:id="VChevrolet" fitHeight="203.0" fitWidth="307.0" layoutX="372.0" layoutY="502.0">
+                        <ImageView fx:id="VChevrolet" fitHeight="262.0" fitWidth="364.0" layoutX="285.0" layoutY="452.0">
                            <image>
                               <Image url="@voiture/Chevrolet-Camaro-PNG-HD.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="VToyota" fitHeight="262.0" fitWidth="457.0" layoutX="876.0" layoutY="424.0">
+                        <ImageView fx:id="VToyota" fitHeight="296.0" fitWidth="482.0" layoutX="857.0" layoutY="383.0">
                            <image>
                               <Image url="@voiture/Toyota-PNG-Photos.png" />
                            </image>
@@ -276,7 +276,7 @@
                         </Pane>
                         <ImageView fx:id="VTesla" fitHeight="298.0" fitWidth="460.0" layoutX="868.0" layoutY="-10.0">
                            <image>
-                              <Image url="@voiture/Tesla-Car-PNG-Transparent.png" />
+                              <Image url="@voiture/Tesla/White-Tesla-Car-PNG-Transparent.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="pr1" layoutX="316.0" layoutY="250.0" mnemonicParsing="false" onAction="#onPr1" prefHeight="20.0" prefWidth="94.0" styleClass="button1" stylesheets="@css/style.css" text="precedent" />

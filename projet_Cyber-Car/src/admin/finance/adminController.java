@@ -1,6 +1,7 @@
 package admin.finance;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -21,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import jdbcconnection.financeData;
 
 public class adminController implements Initializable {
 	
@@ -239,7 +241,23 @@ public class adminController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		this.acceuils.setClosable(false);
-		// TODO Auto-generated method stub
+		
+		try {
+			this.credit.setText(String.valueOf(financeData.getChiffreDaffaire())+" "+"rs");
+			this.commendeEncours.setText(String.valueOf(financeData.nombrCommande())+" ");
+			this.nbEmployee.setText(String.valueOf(financeData.totalEmployee()));
+			this.stock.setText(String.valueOf(financeData.getVoitureEnStock()));
+			this.totalVente.setText(String.valueOf(financeData.getTotalVente()));
+			this.chiffreAffaire.setText(String.valueOf(financeData.getChiffreDaffaire()));
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
 		
 	}
 
