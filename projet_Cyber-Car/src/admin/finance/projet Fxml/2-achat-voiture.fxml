@@ -70,10 +70,12 @@
                         <Text fill="WHITE" layoutX="62.0" layoutY="666.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CREDIT DISPONIBLE" />
                         <Text fx:id="credit" fill="WHITE" layoutX="98.0" layoutY="726.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6000 €" />
                         <Separator layoutX="22.0" layoutY="793.0" prefWidth="200.0" />
-                        <TextField fx:id="nbrVoiture" floatText="nombre de voiture" layoutX="38.0" layoutY="803.0" prefHeight="25.0" prefWidth="143.0" />
-                        <TextField fx:id="total" floatText="total" layoutX="37.0" layoutY="854.0" prefHeight="25.0" prefWidth="143.0" />
+                        <TextField fx:id="nbrVoiture" layoutX="37.0" layoutY="815.0" prefHeight="25.0" prefWidth="143.0" />
+                        <TextField fx:id="total" layoutX="37.0" layoutY="863.0" prefHeight="25.0" prefWidth="143.0" />
                         <Button fx:id="valide" layoutX="42.0" layoutY="910.0" mnemonicParsing="false" onAction="#onValide" prefHeight="28.0" prefWidth="127.0" styleClass="button1" text="Valider" />
                         <Text fill="WHITE" layoutX="37.0" layoutY="789.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RECAPITULATIF ACHAT" />
+                        <Label layoutX="37.0" layoutY="796.0" text="nombre de voiture " textFill="WHITE" />
+                        <Label layoutX="37.0" layoutY="846.0" text="le prix total " textFill="WHITE" />
                      </children>
                   </Pane>
                </left>
