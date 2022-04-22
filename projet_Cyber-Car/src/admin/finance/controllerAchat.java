@@ -19,6 +19,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,6 +38,7 @@ public class controllerAchat implements Initializable {
 	
 	
 	
+	
 	int compteurRenault= 0;
 	int compteurTesla =0;
 	int compteurChevrolet=0;
@@ -46,7 +49,9 @@ public class controllerAchat implements Initializable {
 	int identifiantToyota;
 	int identifiantChevrolet;
 	
-	
+	private static ArrayList<Integer> ValeurPasser = new ArrayList<Integer>();
+	private static ArrayList<Integer> totalValue = new ArrayList<>();
+	private static ArrayList<Integer> FinaltotalValue = new ArrayList<>();
 	
 	int compteurR =0;
 	
@@ -89,56 +94,99 @@ public class controllerAchat implements Initializable {
 	@SuppressWarnings({ "unchecked", "static-access" })
 	private void ShowPanier() {
 		
+	
 		
 		TableView<panierData> table = new TableView<panierData>();
 		TableColumn<panierData,String> nameCar = new TableColumn<panierData,String>("Nom de la voiture");
         TableColumn<panierData,String> quantity = new TableColumn<panierData,String>("Quantité");
         
-        System.out.println(quantite.get(0));
-        System.out.println(Renaultid.indexOf(String.valueOf(quantite.get(0))));
-        System.out.println("id:"+Renaultid);
-        
-        HashSet<Integer> uniqueValue = new HashSet<Integer>(quantite);
-        
+		/*
+		 * System.out.println(quantite.get(0));
+		 * System.out.println(Renaultid.indexOf(String.valueOf(quantite.get(0))));
+		 * System.out.println("id:"+Renaultid);
+		 */
+      
         int comtpteur = 0;
-       
+        totalValue.clear();
+        ValeurPasser.clear();
+  
         ObservableList<panierData>data = FXCollections.observableArrayList();
+        
+        /// boucle pour compter 
         for(int i = 0;i<quantite.size();i++)
         {
-        	if(Renaultid.contains(String.valueOf(quantite.get(i))))
+        	if(ValeurPasser.contains(quantite.get(i)))
+        	{
+        		// si valeur deja utiliser on continue 
+        		continue;
+        	}
+        	else 
         	{
         		
-        		  for(int j=0 ;j<quantite.size();j++)
-        		  {
-        			  
-        			  if(quantite.get(j)==quantite.get(i))
-        			  {
-        				  
-        				  comtpteur++;
-        				  
-        				   
-        				  
-        				 
-        				  
-        			  }
-        				  
-        			 
-        		  }
-        		  System.out.println("id : "+quantite.get(i) + " nombre  ==== > "+comtpteur);
-        		  
-        		
-					/*
-					 * System.out.print(true ); System.out.print(RenaultNom.get(i));
-					 */
-        		  
-        		
-        	}
+            		
+            		  for(int j=0 ;j<quantite.size();j++)
+            		  {
+            			  
+            			  if(quantite.get(j)==quantite.get(i) && !ValeurPasser.contains(quantite.get(j)))
+            			  {
+            				  
+            				  comtpteur++;
+            				  
+
+            				
+            			  }}
+            		  
+            	
+        	
+       
+    		// ajouter dans arrayList les valeurs compter 
+        	totalValue.add(comtpteur);
+        	System.out.println("ici"+comtpteur);
+    		ValeurPasser.add(quantite.get(i));
+    		System.out.println("valeur : ===>"+ValeurPasser+ "total ===>"+totalValue);
         	
         	comtpteur = 0;
+        
+        }
+        }
+        
+        for(int i =0;i<ValeurPasser.size();i++)
+        {
         	
-        	//data.add(new panierData ("1","222"));
+        	if(Renaultid.contains(String.valueOf(ValeurPasser.get(i))))
+        	{
+        		data.add(new panierData(RenaultNom.get(Renaultid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
+        	}
+        	if(Teslaid.contains(String.valueOf(ValeurPasser.get(i))))
+        	{
+        		data.add(new panierData(TeslaNom.get(Teslaid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
+        	}
+        	if(chevroletid.contains(String.valueOf(ValeurPasser.get(i))))
+        	{
+        		data.add(new panierData(chevroletNom.get(chevroletid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
+        	}
+        	if(Toyotaid.contains(String.valueOf(ValeurPasser.get(i))))
+        	{
+        		data.add(new panierData(ToyotaNom.get(Toyotaid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
+        	}
+        		
+        	
         	
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
  
   
         table.setColumnResizePolicy(table.CONSTRAINED_RESIZE_POLICY);
@@ -146,18 +194,22 @@ public class controllerAchat implements Initializable {
         nameCar.setCellValueFactory(new PropertyValueFactory<panierData,String>("nomVoiture"));
         quantity.setCellValueFactory(new PropertyValueFactory<panierData,String>("quantityVoiture"));
         table.setItems(data);
-        
-        
- 
-        
         table.autosize();
         table.setPrefWidth(400);
         table.setPrefHeight(400);
         
+        DialogPane dialog = new DialogPane();
+        dialog.setHeaderText("Voici Ce Que Contient Votre Panier ");
+        dialog.setContent(table);
+        dialog.getButtonTypes().setAll(ButtonType.FINISH,ButtonType.CANCEL);
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setResizable(true);
+		alert.setWidth(600);
+		alert.setHeight(600);
+		dialog.setPrefWidth(600);
+		dialog.setPrefHeight(600);
 		alert.setTitle("RECAPITULATIF PANIER ");
-		alert.setGraphic(table);
+		alert.setDialogPane(dialog);
 		alert.showAndWait();
 		
 		
