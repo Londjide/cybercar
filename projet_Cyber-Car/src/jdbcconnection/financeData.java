@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import admin.finance.controllerAchat;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class financeData
@@ -258,7 +260,7 @@ public class financeData
 	public static  int nombrCommande() throws SQLException
 	{
 		
-		String query = "{ nbrComande() }";
+		String query = "{ call nbrComande() }";
         ResultSet rs;
 
         try (Connection conn = ConnectoDataBase.getConnection();
@@ -278,7 +280,7 @@ public class financeData
 	{
 
 
-		String query = "{ nbremployee() }";
+		String query = "{ call nbremployee() }";
         ResultSet rs;
 
         try (Connection conn = ConnectoDataBase.getConnection();
@@ -298,7 +300,7 @@ public class financeData
 	{
 
 
-		String query = "{ stockVoiture() }";
+		String query = "{ call stockVoiture() }";
         ResultSet rs;
 
         try (Connection conn = ConnectoDataBase.getConnection();
@@ -325,7 +327,7 @@ public class financeData
 	{
 
 
-		String query = "{ stockVoiture() }";
+		String query = "{ call stockVoiture() }";
         ResultSet rs;
 
         try (Connection conn = ConnectoDataBase.getConnection();
@@ -341,7 +343,103 @@ public class financeData
 		
 	}
 	
+	public static void setUpdateStock(int id,int quantite,int entrepot)
+	{
+		String query = "{ call UpdateStock(?,?,?) }";
+	       
+
+        try {
+        	
+        		Connection conn = ConnectoDataBase.getConnection();
+                CallableStatement stmt = conn.prepareCall(query);
+                stmt.setInt(1, id);
+                stmt.setInt(2,quantite);
+                stmt.setInt(3, entrepot);
+                stmt.execute();
+                
+        
+        	
+        	}
+        		
+       catch (SQLException ex) {
+    	   
+    	Alert alert = new Alert(AlertType.INFORMATION);
+   		alert.setWidth(600);
+   		alert.setHeight(600);
+   		alert.setTitle("LA COMMANDE");
+   		alert.setHeaderText("etat de la commande");
+   		alert.setContentText("une Erreur s'est produite =>>>"+ex.getMessage());
+   		alert.showAndWait();
+            //System.out.println(ex.getMessage());
+        }
+		
+	}
 	
+	
+	public static int generateNsuivi()
+	{
+		String query = "{ call LastID() }";
+        ResultSet rs;
+
+        try (
+        		Connection conn = ConnectoDataBase.getConnection();
+                CallableStatement stmt = conn.prepareCall(query))
+        {
+            rs = stmt.executeQuery();
+            if(rs.next())
+            	return rs.getInt("Nsuivi")+1;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+		return 0;
+	}
+	
+	
+	public static void setCommande(int idVoiture,String nameCar,int Quantite,int entrepot)
+	{
+		
+		
+		
+		
+		String query = "{ call Commander(?,?,?,?) }";
+       
+
+        try {
+        	
+        		Connection conn = ConnectoDataBase.getConnection();
+                CallableStatement stmt = conn.prepareCall(query);
+                stmt.setInt(1, idVoiture);
+                stmt.setString(2,nameCar);
+                stmt.setInt(3, Quantite);
+                stmt.setInt(4, entrepot);
+                stmt.execute();
+                
+                Alert alert = new Alert(AlertType.INFORMATION);
+        		alert.setWidth(600);
+        		alert.setHeight(600);
+        		alert.setTitle("LA COMMANDE");
+        		alert.setHeaderText("etat de la commande");
+        		alert.setContentText("Votre à vien été envoyer voici le Numero de suivi : "+generateNsuivi());
+        		alert.showAndWait();
+        		
+                
+                		
+        	
+        	}
+        		
+       catch (SQLException ex) {
+    	   
+    	Alert alert = new Alert(AlertType.INFORMATION);
+   		alert.setWidth(600);
+   		alert.setHeight(600);
+   		alert.setTitle("LA COMMANDE");
+   		alert.setHeaderText("etat de la commande");
+   		alert.setContentText("une Erreur s'est produite =>>>"+ex.getMessage());
+   		alert.showAndWait();
+            //System.out.println(ex.getMessage());
+        }
+		
+	}
 	
 }
 	

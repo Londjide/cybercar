@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.gluonhq.charm.glisten.control.TextField;
@@ -33,32 +34,30 @@ import jdbcconnection.financeData;
 public class controllerAchat implements Initializable {
 	
 	
-	private static ArrayList<Integer> quantite = new ArrayList<>();
-	
-	
-	
-	
-	
+
 	int compteurRenault= 0;
 	int compteurTesla =0;
 	int compteurChevrolet=0;
 	int compteurToyota=0;
-	double PrixTotal = 0 ;
+	double PrixTotal = 0;
+	
+	
+	private static ArrayList<Integer> ValeurPasser = new ArrayList<Integer>();
+	private static ArrayList<Integer> totalValue = new ArrayList<>();
+    private static ArrayList<Integer> quantite = new ArrayList<>();
+	
+	
 	int identifiantRenault;
 	int identifiantTesla;
 	int identifiantToyota;
 	int identifiantChevrolet;
 	
-	private static ArrayList<Integer> ValeurPasser = new ArrayList<Integer>();
-	private static ArrayList<Integer> totalValue = new ArrayList<>();
-	private static ArrayList<Integer> FinaltotalValue = new ArrayList<>();
-	
-	int compteurR =0;
 	
 	
 	
 	
 	
+	private static ArrayList<String> chevroletimg = new ArrayList<String>();
 	private static ArrayList<String> chevroletprice = new ArrayList<String>();
 	private static ArrayList<String> chevroletVitesse = new ArrayList<String>();
 	private static ArrayList<String> chevroletNom = new ArrayList<String>();
@@ -78,237 +77,14 @@ public class controllerAchat implements Initializable {
 	private static ArrayList<String> ToyotaNom = new ArrayList<String>();
 	private static ArrayList<String> Toyotaid = new ArrayList<String>();
 
-	
-	
-	
-	private void informationCredit() {
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("credit insufisant ");
-		alert.setHeaderText("information:");
-		alert.setContentText("le credit disponible ne permet pas d'ajouter une nouvelle voiture !");
-		alert.showAndWait();
-		
-	}
-	
-	
-	@SuppressWarnings({ "unchecked", "static-access" })
-	private void ShowPanier() {
-		
-	
-		
-		TableView<panierData> table = new TableView<panierData>();
-		TableColumn<panierData,String> nameCar = new TableColumn<panierData,String>("Nom de la voiture");
-        TableColumn<panierData,String> quantity = new TableColumn<panierData,String>("Quantité");
-        
-		/*
-		 * System.out.println(quantite.get(0));
-		 * System.out.println(Renaultid.indexOf(String.valueOf(quantite.get(0))));
-		 * System.out.println("id:"+Renaultid);
-		 */
-      
-        int comtpteur = 0;
-        totalValue.clear();
-        ValeurPasser.clear();
-  
-        ObservableList<panierData>data = FXCollections.observableArrayList();
-        
-        /// boucle pour compter 
-        for(int i = 0;i<quantite.size();i++)
-        {
-        	if(ValeurPasser.contains(quantite.get(i)))
-        	{
-        		// si valeur deja utiliser on continue 
-        		continue;
-        	}
-        	else 
-        	{
-        		
-            		
-            		  for(int j=0 ;j<quantite.size();j++)
-            		  {
-            			  
-            			  if(quantite.get(j)==quantite.get(i) && !ValeurPasser.contains(quantite.get(j)))
-            			  {
-            				  
-            				  comtpteur++;
-            				  
-
-            				
-            			  }}
-            		  
-            	
-        	
-       
-    		// ajouter dans arrayList les valeurs compter 
-        	totalValue.add(comtpteur);
-        	System.out.println("ici"+comtpteur);
-    		ValeurPasser.add(quantite.get(i));
-    		System.out.println("valeur : ===>"+ValeurPasser+ "total ===>"+totalValue);
-        	
-        	comtpteur = 0;
-        
-        }
-        }
-        
-        for(int i =0;i<ValeurPasser.size();i++)
-        {
-        	
-        	if(Renaultid.contains(String.valueOf(ValeurPasser.get(i))))
-        	{
-        		data.add(new panierData(RenaultNom.get(Renaultid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
-        	}
-        	if(Teslaid.contains(String.valueOf(ValeurPasser.get(i))))
-        	{
-        		data.add(new panierData(TeslaNom.get(Teslaid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
-        	}
-        	if(chevroletid.contains(String.valueOf(ValeurPasser.get(i))))
-        	{
-        		data.add(new panierData(chevroletNom.get(chevroletid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
-        	}
-        	if(Toyotaid.contains(String.valueOf(ValeurPasser.get(i))))
-        	{
-        		data.add(new panierData(ToyotaNom.get(Toyotaid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
-        	}
-        		
-        	
-        	
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
- 
-  
-        table.setColumnResizePolicy(table.CONSTRAINED_RESIZE_POLICY);
-        table.getColumns().addAll(nameCar,quantity);
-        nameCar.setCellValueFactory(new PropertyValueFactory<panierData,String>("nomVoiture"));
-        quantity.setCellValueFactory(new PropertyValueFactory<panierData,String>("quantityVoiture"));
-        table.setItems(data);
-        table.autosize();
-        table.setPrefWidth(400);
-        table.setPrefHeight(400);
-        
-        DialogPane dialog = new DialogPane();
-        dialog.setHeaderText("Voici Ce Que Contient Votre Panier ");
-        dialog.setContent(table);
-        dialog.getButtonTypes().setAll(ButtonType.FINISH,ButtonType.CANCEL);
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setResizable(true);
-		alert.setWidth(600);
-		alert.setHeight(600);
-		dialog.setPrefWidth(600);
-		dialog.setPrefHeight(600);
-		alert.setTitle("RECAPITULATIF PANIER ");
-		alert.setDialogPane(dialog);
-		alert.showAndWait();
-		
-		
-	}
-	
-	public static void setToyotaimg(ArrayList<String> toyotaimg) {
-		Toyotaimg = toyotaimg;
-	}
-
-	public static void setToyotaprice(ArrayList<String> toyotaprice) {
-		Toyotaprice = toyotaprice;
-	}
-
-	public static void setToyotaVitesse(ArrayList<String> toyotaVitesse) {
-		ToyotaVitesse = toyotaVitesse;
-	}
-
-	public static void setToyotaNom(ArrayList<String> toyotaNom) {
-		ToyotaNom = toyotaNom;
-	}
-
-	public static void setToyotaid(ArrayList<String> toyotaid) {
-		Toyotaid = toyotaid;
-	}
-
-	public static void setRenaultimg(ArrayList<String> renaultimg) {
-		Renaultimg = renaultimg;
-	}
-
-	public static void setRenaultprice(ArrayList<String> renaultprice) {
-		Renaultprice = renaultprice;
-	}
-
-
-
-	public static void setRenaultVitesse(ArrayList<String> renaultVitesse) {
-		RenaultVitesse = renaultVitesse;
-	}
-
-
-
-	public static void setRenaultNom(ArrayList<String> renaultNom) {
-		RenaultNom = renaultNom;
-	}
-
-
-	public static void setRenaultid(ArrayList<String> renaultid) {
-		Renaultid = renaultid;
-	}
-
-
 	private static ArrayList<String> Renaultimg = new ArrayList<String>();
 	private static ArrayList<String> Renaultprice = new ArrayList<String>();
 	private static ArrayList<String> RenaultVitesse = new ArrayList<String>();
 	private static ArrayList<String> RenaultNom = new ArrayList<String>();
 	private static ArrayList<String> Renaultid = new ArrayList<String>();
 	
-	private static ArrayList<String> chevroletimg = new ArrayList<String>();
-	public static void setChevroletimg(ArrayList<String> chevroletimg) {
-		controllerAchat.chevroletimg = chevroletimg;
-	}
-
-	public static void setChevroletprice(ArrayList<String> chevroletprice) {
-		controllerAchat.chevroletprice = chevroletprice;
-	}
-
-	public static void setChevroletVitesse(ArrayList<String> chevroletVitesse) {
-		controllerAchat.chevroletVitesse = chevroletVitesse;
-	}
-
-	public static void setChevroletNom(ArrayList<String> chevroletNom) {
-		controllerAchat.chevroletNom = chevroletNom;
-	}
-
-	public static void setChevroletid(ArrayList<String> chevroletid) {
-		controllerAchat.chevroletid = chevroletid;
-	}
-
-	public static void setTeslaimg(ArrayList<String> teslatimg) {
-		Teslaimg = teslatimg;
-	}
-
-	public static void setTeslaprice(ArrayList<String> teslatprice) {
-		Teslatprice = teslatprice;
-	}
-
-	public static void setTeslaVitesse(ArrayList<String> teslaVitesse) {
-		TeslaVitesse = teslaVitesse;
-	}
-
-	public static void setTeslaNom(ArrayList<String> teslatNom) {
-		TeslaNom = teslatNom;
-	}
-
-	public static void setTeslaid(ArrayList<String> teslaid) {
-		Teslaid = teslaid;
-	}
 	
-	
+
 
 	
 
@@ -430,6 +206,269 @@ public class controllerAchat implements Initializable {
     void onDashboard(ActionEvent event) {
 
     }
+    
+	private void informationCredit() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("credit insufisant ");
+		alert.setHeaderText("information:");
+		alert.setContentText("le credit disponible ne permet pas d'ajouter une nouvelle voiture !");
+		alert.showAndWait();
+		
+	}
+	
+	
+	@SuppressWarnings({ "unchecked", "static-access" })
+	private void ShowPanier() {
+		
+	
+		
+		TableView<panierData> table = new TableView<panierData>();
+		TableColumn<panierData,String> nameCar = new TableColumn<panierData,String>("Nom de la voiture");
+        TableColumn<panierData,String> quantity = new TableColumn<panierData,String>("Quantité");
+        
+		/*
+		 * System.out.println(quantite.get(0));
+		 * System.out.println(Renaultid.indexOf(String.valueOf(quantite.get(0))));
+		 * System.out.println("id:"+Renaultid);
+		 */
+      
+        int comtpteur = 0;
+        totalValue.clear();
+        ValeurPasser.clear();
+  
+        ObservableList<panierData>data = FXCollections.observableArrayList();
+        
+        /// boucle pour compter 
+        for(int i = 0;i<quantite.size();i++)
+        {
+        	if(ValeurPasser.contains(quantite.get(i)))
+        	{
+        		// si valeur deja utiliser on continue 
+        		continue;
+        	}
+        	else 
+        	{
+        		
+            		
+            		  for(int j=0 ;j<quantite.size();j++)
+            		  {
+            			  
+            			  if(quantite.get(j)==quantite.get(i) && !ValeurPasser.contains(quantite.get(j)))
+            			  {
+            				  
+            				  comtpteur++;
+            				  
+
+            				
+            			  }}
+            		  
+            	
+        	
+       
+    		// ajouter dans arrayList les valeurs compter 
+        	totalValue.add(comtpteur);
+        	System.out.println("ici"+comtpteur);
+    		ValeurPasser.add(quantite.get(i));
+    		System.out.println("valeur : ===>"+ValeurPasser+ "total ===>"+totalValue);
+        	
+        	comtpteur = 0;
+        
+        }
+        }
+        
+        for(int i =0;i<ValeurPasser.size();i++)
+        {
+        	
+        	if(Renaultid.contains(String.valueOf(ValeurPasser.get(i))))
+        	{
+        		data.add(new panierData(RenaultNom.get(Renaultid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
+        	}
+        	if(Teslaid.contains(String.valueOf(ValeurPasser.get(i))))
+        	{
+        		data.add(new panierData(TeslaNom.get(Teslaid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
+        	}
+        	if(chevroletid.contains(String.valueOf(ValeurPasser.get(i))))
+        	{
+        		data.add(new panierData(chevroletNom.get(chevroletid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
+        	}
+        	if(Toyotaid.contains(String.valueOf(ValeurPasser.get(i))))
+        	{
+        		data.add(new panierData(ToyotaNom.get(Toyotaid.indexOf(String.valueOf(ValeurPasser.get(i)))),String.valueOf(totalValue.get(i))));
+        	}
+        		
+        	
+        	
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+ 
+  
+        table.setColumnResizePolicy(table.CONSTRAINED_RESIZE_POLICY);
+        table.getColumns().addAll(nameCar,quantity);
+        nameCar.setCellValueFactory(new PropertyValueFactory<panierData,String>("nomVoiture"));
+        quantity.setCellValueFactory(new PropertyValueFactory<panierData,String>("quantityVoiture"));
+        table.setItems(data);
+        table.autosize();
+        table.setPrefWidth(400);
+        table.setPrefHeight(400);
+        
+        DialogPane dialog = new DialogPane();
+        dialog.setHeaderText("Voici Ce Que Contient Votre Panier ");
+        dialog.setContent(table);
+        dialog.getButtonTypes().setAll(ButtonType.FINISH,ButtonType.CANCEL);
+        
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setResizable(true);
+		alert.setWidth(600);
+		alert.setHeight(600);
+		dialog.setPrefWidth(600);
+		dialog.setPrefHeight(600);
+		alert.setTitle("RECAPITULATIF PANIER ");
+		alert.setDialogPane(dialog);
+		Optional<ButtonType> button  = alert.showAndWait();
+		
+		if (button.get()==ButtonType.FINISH)
+		{
+			 for(int i =0;i<ValeurPasser.size();i++)
+		        {
+		        	
+		        	if(Renaultid.contains(String.valueOf(ValeurPasser.get(i))))	
+		        	{
+		        		financeData.setCommande(ValeurPasser.get(i), RenaultNom.get(Renaultid.indexOf(String.valueOf(ValeurPasser.get(i)))),Integer.valueOf(totalValue.get(i)), 1);
+		        		financeData.setUpdateStock(ValeurPasser.get(i),Integer.valueOf(totalValue.get(i)),1);
+		        	}
+		        	if(Teslaid.contains(String.valueOf(ValeurPasser.get(i))))
+		        	{
+		        		financeData.setCommande(ValeurPasser.get(i), TeslaNom.get(Teslaid.indexOf(String.valueOf(ValeurPasser.get(i)))),Integer.valueOf(totalValue.get(i)), 1);
+		        		financeData.setUpdateStock(ValeurPasser.get(i),Integer.valueOf(totalValue.get(i)),1);
+		        	}
+		        	if(chevroletid.contains(String.valueOf(ValeurPasser.get(i))))
+		        	{
+		        		financeData.setCommande(ValeurPasser.get(i), chevroletNom.get(chevroletid.indexOf(String.valueOf(ValeurPasser.get(i)))),Integer.valueOf(totalValue.get(i)), 1);
+		        		financeData.setUpdateStock(ValeurPasser.get(i),Integer.valueOf(totalValue.get(i)),1);
+		        	}
+		        	if(Toyotaid.contains(String.valueOf(ValeurPasser.get(i))))
+		        	{
+		        		financeData.setCommande(ValeurPasser.get(i), ToyotaNom.get(Toyotaid.indexOf(String.valueOf(ValeurPasser.get(i)))),Integer.valueOf(totalValue.get(i)), 1);
+		        		financeData.setUpdateStock(ValeurPasser.get(i),Integer.valueOf(totalValue.get(i)),1);
+		        	}
+		        		
+		        	
+		        	
+		        }
+			
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	public static void setToyotaimg(ArrayList<String> toyotaimg) {
+		Toyotaimg = toyotaimg;
+	}
+
+	public static void setToyotaprice(ArrayList<String> toyotaprice) {
+		Toyotaprice = toyotaprice;
+	}
+
+	public static void setToyotaVitesse(ArrayList<String> toyotaVitesse) {
+		ToyotaVitesse = toyotaVitesse;
+	}
+
+	public static void setToyotaNom(ArrayList<String> toyotaNom) {
+		ToyotaNom = toyotaNom;
+	}
+
+	public static void setToyotaid(ArrayList<String> toyotaid) {
+		Toyotaid = toyotaid;
+	}
+
+	public static void setRenaultimg(ArrayList<String> renaultimg) {
+		Renaultimg = renaultimg;
+	}
+
+	public static void setRenaultprice(ArrayList<String> renaultprice) {
+		Renaultprice = renaultprice;
+	}
+
+	public static void setRenaultVitesse(ArrayList<String> renaultVitesse) {
+		RenaultVitesse = renaultVitesse;
+	}
+
+	public static void setRenaultNom(ArrayList<String> renaultNom) {
+		RenaultNom = renaultNom;
+	}
+
+	public static void setRenaultid(ArrayList<String> renaultid) {
+		Renaultid = renaultid;
+	} 
+
+	public static void setChevroletimg(ArrayList<String> chevroletimg) {
+		controllerAchat.chevroletimg = chevroletimg;
+	}
+
+	public static void setChevroletprice(ArrayList<String> chevroletprice) {
+		controllerAchat.chevroletprice = chevroletprice;
+	}
+
+	public static void setChevroletVitesse(ArrayList<String> chevroletVitesse) {
+		controllerAchat.chevroletVitesse = chevroletVitesse;
+	}
+
+	public static void setChevroletNom(ArrayList<String> chevroletNom) {
+		controllerAchat.chevroletNom = chevroletNom;
+	}
+
+	public static void setChevroletid(ArrayList<String> chevroletid) {
+		controllerAchat.chevroletid = chevroletid;
+	}
+
+	public static void setTeslaimg(ArrayList<String> teslatimg) {
+		Teslaimg = teslatimg;
+	}
+
+	public static void setTeslaprice(ArrayList<String> teslatprice) {
+		Teslatprice = teslatprice;
+	}
+
+	public static void setTeslaVitesse(ArrayList<String> teslaVitesse) {
+		TeslaVitesse = teslaVitesse;
+	}
+
+	public static void setTeslaNom(ArrayList<String> teslatNom) {
+		TeslaNom = teslatNom;
+	}
+
+	public static void setTeslaid(ArrayList<String> teslaid) {
+		Teslaid = teslaid;
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
     @FXML
     void onPr1(ActionEvent event) throws SQLException, FileNotFoundException {
@@ -854,6 +893,8 @@ public class controllerAchat implements Initializable {
 
     }
     
+   
+
     void OnafficheAllImage() throws FileNotFoundException
     {
     	//renault 
@@ -956,7 +997,6 @@ public class controllerAchat implements Initializable {
     
     }
     
-
     @FXML
     void onTachat(ActionEvent event) {
     	
@@ -998,7 +1038,6 @@ public class controllerAchat implements Initializable {
      	
 
     }
-
     @FXML
     void onToachat(ActionEvent event) {
     	
@@ -1040,7 +1079,6 @@ public class controllerAchat implements Initializable {
      	
 
     }
-
     @FXML
     void onCachat(ActionEvent event)
     {
