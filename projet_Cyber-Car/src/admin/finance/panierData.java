@@ -25,25 +25,21 @@ public class panierData
 	public String getNomVoiture()
 	{
 		return nomVoiture.get();
-		
 	}
 	
 	public void setNomVoiture(String nCar)
 	{
 		nomVoiture.set(nCar);
-		
 	}
 	
 	public String getQuantityVoiture()
 	{
 		return quantityVoiture.get();
-		
 	}
 
 	public void setQuantityVoiture(String quantity)
 	{
-		nomVoiture.set(quantity);
-		
+		nomVoiture.set(quantity);	
 	}
 
 	

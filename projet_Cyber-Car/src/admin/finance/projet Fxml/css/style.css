@@ -44,6 +44,11 @@
 
 }
 
+.saisi
+{
+    -fx-background-radius: 50px 50px 50px 50px ;
+}
+
 .btn
 {
     -fx-background-color:none;

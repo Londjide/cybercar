@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import admin.finance.adminController;
 import admin.finance.controllerAchat;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -64,7 +65,6 @@ public class financeData
 			
 	
 	}
-
 
 	public static void getallvoitureTestla()throws SQLException
 	{
@@ -160,8 +160,6 @@ public class financeData
 		
 	}
 
-
-
 	public static void getallvoitureToyota()throws SQLException
 	{
 		ArrayList<String> imgCar = new ArrayList<String>();
@@ -207,8 +205,6 @@ public class financeData
 			
 		
 	}
-
-
 	
 	public static int getChiffreDaffaire() throws SQLException
 	{
@@ -228,16 +224,6 @@ public class financeData
 			
 	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public static int getTotalVente() throws SQLException
 	{
@@ -321,8 +307,7 @@ public class financeData
 
 		
 	}
-	
-	
+
 	public ResultSet getEmplacementCommande(int nSuivi) throws SQLException
 	{
 
@@ -374,8 +359,7 @@ public class financeData
         }
 		
 	}
-	
-	
+
 	public static int generateNsuivi()
 	{
 		String query = "{ call LastID() }";
@@ -393,8 +377,7 @@ public class financeData
         }
 		return 0;
 	}
-	
-	
+
 	public static void setCommande(int idVoiture,String nameCar,int Quantite,int entrepot)
 	{
 		
@@ -414,13 +397,13 @@ public class financeData
                 stmt.setInt(4, entrepot);
                 stmt.execute();
                 
-                Alert alert = new Alert(AlertType.INFORMATION);
-        		alert.setWidth(600);
-        		alert.setHeight(600);
-        		alert.setTitle("LA COMMANDE");
-        		alert.setHeaderText("etat de la commande");
-        		alert.setContentText("Votre à vien été envoyer voici le Numero de suivi : "+generateNsuivi());
-        		alert.showAndWait();
+				/*
+				 * Alert alert = new Alert(AlertType.INFORMATION); alert.setWidth(600);
+				 * alert.setHeight(600); alert.setTitle("LA COMMANDE");
+				 * alert.setHeaderText("etat de la commande");
+				 * alert.setContentText("Votre à vien été envoyer voici le Numero de suivi : "
+				 * +generateNsuivi()); alert.showAndWait();
+				 */
         		
                 
                 		
@@ -441,6 +424,126 @@ public class financeData
 		
 	}
 	
+	public static void getDataRapport()
+	{
+		ArrayList<String> date = new ArrayList<String>();
+		ArrayList<Integer> nbrVente = new ArrayList<Integer>();
+		ArrayList<Number> chiffre = new ArrayList<Number>();
+		
+		
+		
+		   String query = "{ call graphique() }";
+	        ResultSet rs;
+
+	        try (Connection conn = ConnectoDataBase.getConnection();
+	                CallableStatement stmt = conn.prepareCall(query))
+	        {
+	            rs = stmt.executeQuery();
+	            while(rs.next())
+	            {
+	            	
+	            	date.add(rs.getString("dateDachat"));
+	            	nbrVente.add(rs.getInt("nbrVente"));
+	            	chiffre.add(rs.getDouble("chiffre"));
+	            	
+	            
+	            	
+	            	adminController.DateR = date;
+	            	adminController.nbrVenteR = nbrVente;
+	            	adminController.chiffreR = chiffre;
+
+	        
+	            }
+	            
+	        } catch (SQLException ex) {
+	            System.out.println(ex.getMessage());
+	        }
+		
+	}
+
+	public static void getDepVente()
+	{
+		
+		ArrayList<Integer> transaction = new ArrayList<Integer>();
+		ArrayList<String> date = new ArrayList<String>();
+		ArrayList<Double> montant = new ArrayList<Double>();
+		ArrayList<Double> remise = new ArrayList<Double>();
+		
+		
+		
+		   String query = "{ call depVente() }";
+	        ResultSet rs;
+
+	        try (Connection conn = ConnectoDataBase.getConnection();
+	                CallableStatement stmt = conn.prepareCall(query))
+	        {
+	            rs = stmt.executeQuery();
+	            while(rs.next())
+	            {
+	            	
+	            	transaction.add(rs.getInt("idclients"));
+	            	date.add(rs.getString("dateDachat"));
+	            	montant.add(rs.getDouble("montant"));
+	            	remise.add(rs.getDouble("ramise"));
+	            
+	            	
+	            	adminController.Transaction = transaction;
+	            	adminController.Date = date;
+	            	adminController.Montant = montant;
+	            	adminController.Remise = remise;
+
+	        
+	            }
+	            
+	        } catch (SQLException ex) {
+	            System.out.println(ex.getMessage());
+	        }
+		
+
+		
+	}
+	
+	
+	public static void UpdateRemiseClient(int Transaction,Double Remise)
+	{
+		
+		String query = "{ call RemiseUpdate(?,?) }";
+	       
+
+        try {
+        	
+        		Connection conn = ConnectoDataBase.getConnection();
+                CallableStatement stmt = conn.prepareCall(query);
+                stmt.setInt(1, Transaction);
+                stmt.setDouble(2,Remise);
+             
+                stmt.execute();
+                
+                
+    	}
+		
+        catch (SQLException ex) {
+     	   
+     	Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setWidth(600);
+    		alert.setHeight(600);
+    		alert.setTitle("Remise ");
+    		alert.setHeaderText("Le probleme");
+    		alert.setContentText("une Erreur s'est produite =>>>"+ex.getMessage());
+    		alert.showAndWait();
+             //System.out.println(ex.getMessage());
+         }
+		
+	}
+	
+	
+	
+	
+	
+
+
+
+
 }
 	
 	

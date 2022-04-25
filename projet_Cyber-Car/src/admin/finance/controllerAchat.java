@@ -48,6 +48,7 @@ public class controllerAchat implements Initializable {
 	
 	
 	int identifiantRenault;
+	int indexR;
 	int identifiantTesla;
 	int identifiantToyota;
 	int identifiantChevrolet;
@@ -199,6 +200,20 @@ public class controllerAchat implements Initializable {
 
     @FXML
     private Button valide;
+    
+    
+    @FXML
+    private Button suppC;
+
+    @FXML
+    private Button suppR;
+
+    @FXML
+    private Button suppT;
+
+    @FXML
+    private Button suppTo;
+    
 
  
 
@@ -226,11 +241,7 @@ public class controllerAchat implements Initializable {
 		TableColumn<panierData,String> nameCar = new TableColumn<panierData,String>("Nom de la voiture");
         TableColumn<panierData,String> quantity = new TableColumn<panierData,String>("Quantité");
         
-		/*
-		 * System.out.println(quantite.get(0));
-		 * System.out.println(Renaultid.indexOf(String.valueOf(quantite.get(0))));
-		 * System.out.println("id:"+Renaultid);
-		 */
+		
       
         int comtpteur = 0;
         totalValue.clear();
@@ -368,6 +379,23 @@ public class controllerAchat implements Initializable {
 		        	
 		        	
 		        }
+			 
+			 
+			 compteurRenault= 0;
+			 compteurTesla =0;
+			 compteurChevrolet=0;
+			 compteurToyota=0;
+			 PrixTotal = 0;
+			 total.setText("");
+			 nbrVoiture.setText("");
+			 nbrR.setText("0");
+			 nbrT.setText("0");
+			 nbrC.setText("0");
+			 nbrTo.setText("0");
+			 quantite.clear();
+			 ValeurPasser.clear();
+			 totalValue.clear();
+				
 			
 		}
 		
@@ -941,7 +969,7 @@ public class controllerAchat implements Initializable {
     @FXML
     void onRachat(ActionEvent event)
     {
-    	
+    	suppR.setDisable(false);
     	 int  nbrCarValide = 0; 
     	
     	//System.out.println(quantite);
@@ -968,11 +996,13 @@ public class controllerAchat implements Initializable {
 			  if(quantite.get(i)==identifiantRenault)
 			  {
 				  nbrCarValide++;
+				  indexR = i;
 				  
 			  }
 				 
 			  
 			  nbrR.setText(String.valueOf(nbrCarValide));
+			  
 		  }
 		  
     
@@ -996,7 +1026,6 @@ public class controllerAchat implements Initializable {
 
     
     }
-    
     @FXML
     void onTachat(ActionEvent event) {
     	
@@ -1122,6 +1151,69 @@ public class controllerAchat implements Initializable {
     	
 
     }
+   
+    @FXML
+    void onSuppC(ActionEvent event) 
+    {
+    	
+    }
+
+    @FXML
+    void onSuppR(ActionEvent event) 
+    {
+    	int  nbrCarValide = 0; 
+
+    	
+    	System.out.println(indexR+"  ---->"+quantite);
+    	
+    	
+    	
+    	quantite.remove(indexR);
+    	PrixTotal -= Integer.valueOf(RPrix.getText());
+		total.setText(String.valueOf(PrixTotal));
+		
+		
+    	System.out.println(indexR+"  ---->"+quantite+"size ---->"+quantite.size());
+    	if (indexR ==0)
+    	{
+    		  nbrR.setText("0");
+    		  suppR.setDisable(true);
+    		  
+    	}else
+    	{
+    		  
+    		for(int i=0 ;i<quantite.size();i++)
+  		  {
+  			  
+  			  if(quantite.get(i)==identifiantRenault)
+  			  {
+  				  nbrCarValide++;
+  				  indexR = i;
+  				  
+  			  }
+  				 
+  			  
+  			  nbrR.setText(String.valueOf(nbrCarValide));
+  			nbrVoiture.setText(String.valueOf(quantite.size()));
+  			  
+  		  }	
+    	}
+    	
+    }
+
+    @FXML
+    void onSuppT(ActionEvent event) 
+    {
+
+    }
+
+    @FXML
+    void onSuppTo(ActionEvent event) 
+    {
+
+    }
+    
+    
     @FXML
     void onValide(ActionEvent event) {
     	
@@ -1138,7 +1230,7 @@ public class controllerAchat implements Initializable {
 		
 		
 		
-		credit.setText("60001121");
+		
 		
 	try {
 			
@@ -1146,6 +1238,11 @@ public class controllerAchat implements Initializable {
 			financeData.getallvoitureTestla();
 			financeData.getallvoitureChevrolet();
 			financeData.getallvoitureToyota();
+			credit.setText(String.valueOf(financeData.getChiffreDaffaire()));
+			suppR.setDisable(true);
+			suppT.setDisable(true);
+			suppTo.setDisable(true);
+			suppC.setDisable(true);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
