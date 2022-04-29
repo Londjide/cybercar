@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import admin.finance.adminController;
-import admin.finance.controllerAchat;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import module.finance.adminController;
+import module.finance.controllerAchat;
 
 
 public class financeData
