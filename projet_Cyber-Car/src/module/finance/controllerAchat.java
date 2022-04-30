@@ -3,10 +3,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -22,7 +20,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -225,7 +222,9 @@ public class controllerAchat implements Initializable {
 
     }
     
-	private void informationCredit() {
+	private void informationCredit() 
+	{
+		
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("credit insufisant ");
 		alert.setHeaderText("information:");
@@ -289,7 +288,7 @@ public class controllerAchat implements Initializable {
         
         }
         }
-        
+        // aéffichage sur le tableview
         for(int i =0;i<ValeurPasser.size();i++)
         {
         	
@@ -398,6 +397,7 @@ public class controllerAchat implements Initializable {
 			 quantite.clear();
 			 ValeurPasser.clear();
 			 totalValue.clear();
+			 
 				
 			
 		}
@@ -997,10 +997,10 @@ public class controllerAchat implements Initializable {
 		  {
 			  
 			  if(quantite.get(i)==identifiantRenault)
-			  {
+			  { 
 				  nbrCarValide++;
 				  indexR = i;
-				  
+				 
 			  }
 				 
 			  
@@ -1166,7 +1166,17 @@ public class controllerAchat implements Initializable {
     {
 		int  nbrCarValide = 0; 
 		
-		    	
+		
+				for(int i=0 ;i<quantite.size();i++)
+				  {
+					  
+					  if(quantite.get(i)==identifiantChevrolet)
+					  {
+						  indexC = i;
+		
+					  }
+				  }
+  	
 		    	System.out.println(indexC+"  ---->"+quantite);
 		    	
 		    	
@@ -1179,9 +1189,11 @@ public class controllerAchat implements Initializable {
 		    	System.out.println(indexC+"  ---->"+quantite+"size ---->"+quantite.size());
 		    	if (!quantite.contains(identifiantChevrolet))
 		    	{
+		    		System.out.println("c'est ici que ça se passe"+quantite.size());
 		    		
 		    		  nbrC.setText("0");
 		    		  suppC.setDisable(true);
+		    		  nbrVoiture.setText(String.valueOf(quantite.size()));
 		    		  
 		    	}else
 		    	{
@@ -1198,7 +1210,7 @@ public class controllerAchat implements Initializable {
 		  			  }
 		  				 
 		  			  
-		  			  nbrC.setText(String.valueOf(nbrCarValide));
+		  			nbrC.setText(String.valueOf(nbrCarValide));
 		  			nbrVoiture.setText(String.valueOf(quantite.size()));
 		  			  
 		  		  }	
@@ -1213,7 +1225,17 @@ public class controllerAchat implements Initializable {
     	int  nbrCarValide = 0; 
 
     	
-    	System.out.println(indexR+"  ---->"+quantite);
+    	for(int i=0 ;i<quantite.size();i++)
+		  {
+			  
+			  if(quantite.get(i)==identifiantRenault)
+			  {
+				  indexR = i;
+  
+			  }
+		  }
+    	
+    	System.out.println(indexR+" llllll ---->"+quantite);
     	
     	
     	
@@ -1228,8 +1250,12 @@ public class controllerAchat implements Initializable {
     	// mettre la valeur du compteur pour mettre à jour 
     	if (!quantite.contains(identifiantRenault))
     	{
+    		System.out.println("c'est ici que ça se passe"+quantite.size());
     		  nbrR.setText("0");
     		  suppR.setDisable(true);
+    		  nbrVoiture.setText(String.valueOf(quantite.size()));
+    		  
+    			
     		  
     	}else
     	{
@@ -1261,7 +1287,15 @@ public class controllerAchat implements Initializable {
 			    	
 			    	System.out.println(indexT+"  ---->"+quantite);
 			    	
-			    	
+			    	for(int i=0 ;i<quantite.size();i++)
+					  {
+						  
+						  if(quantite.get(i)==identifiantTesla)
+						  {
+							  indexT = i;
+			  
+						  }
+					  }
 			    	
 			    	quantite.remove(indexT);
 			    	PrixTotal -= Integer.valueOf(TPrix.getText());
@@ -1271,20 +1305,23 @@ public class controllerAchat implements Initializable {
 			    	System.out.println(indexT+"  ---->"+quantite+"size ---->"+quantite.size());
 			    	if (!quantite.contains(identifiantTesla))
 			    	{
+			    		System.out.println("c'est ici que ça se passe"+quantite.size());
 			    		  nbrT.setText("0");
 			    		  suppT.setDisable(true);
+			    		  nbrVoiture.setText(String.valueOf(quantite.size()));
 			    		  
 			    	}else
 			    	{
 			    		  
 			    		for(int i=0 ;i<quantite.size();i++)
 			  		  {
+			    			System.out.println(quantite.size());
 			  			  
 			  			  if(quantite.get(i)==identifiantTesla)
 			  			  {
 			  				  nbrCarValide++;
 			  				  indexT = i;
-			  				  
+			  				  System.out.println(indexT);
 			  			  }
 			  				 
 			  			  
@@ -1305,7 +1342,15 @@ public class controllerAchat implements Initializable {
 			    	
 			    	System.out.println(indexTo+"  ---->"+quantite);
 			    	
-			    	
+			    	for(int i=0 ;i<quantite.size();i++)
+					  {
+						  
+						  if(quantite.get(i)==identifiantToyota)
+						  {
+							  indexTo = i;
+			  
+						  }
+					  }
 			    	
 			    	quantite.remove(indexTo);
 			    	PrixTotal -= Integer.valueOf(ToPrix.getText());
@@ -1315,14 +1360,17 @@ public class controllerAchat implements Initializable {
 			    	System.out.println(indexTo+"  ---->"+quantite+"size ---->"+quantite.size());
 			    	if (!quantite.contains(identifiantToyota))
 			    	{
+			    		System.out.println("c'est ici que ça se passe"+quantite.size());
 			    		  nbrTo.setText("0");
 			    		  suppTo.setDisable(true);
+			    		  nbrVoiture.setText(String.valueOf(quantite.size()));
 			    		  
 			    	}else
 			    	{
 			    		  
 			    		for(int i=0 ;i<quantite.size();i++)
 			  		  {
+			    		
 			  			  
 			  			  if(quantite.get(i)==identifiantToyota)
 			  			  {

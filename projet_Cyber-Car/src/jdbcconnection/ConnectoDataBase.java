@@ -18,9 +18,6 @@ import java.util.Random;
 public class ConnectoDataBase
 {
 
-  
-
-
 
 	public static Connection getConnection() throws SQLException 
 	{
@@ -31,11 +28,8 @@ public class ConnectoDataBase
 		return conn;
 
 	}
-
 	
-	 
-	 
-	}
+}
 
 	
 

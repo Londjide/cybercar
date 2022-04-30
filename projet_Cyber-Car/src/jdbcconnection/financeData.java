@@ -17,8 +17,6 @@ public class financeData
 {
 	
 	
-
-	
 	public static void getAllVoitureRenault() throws SQLException
 	{
 		ArrayList<String> imgCar = new ArrayList<String>();
@@ -502,8 +500,7 @@ public class financeData
 
 		
 	}
-	
-	
+
 	public static void UpdateRemiseClient(int Transaction,Double Remise)
 	{
 		
@@ -539,10 +536,6 @@ public class financeData
 	
 	
 	
-	
-
-
-
 
 }
 	
