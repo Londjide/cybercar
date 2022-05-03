@@ -1,7 +1,25 @@
+.menu{
+    -fx-background-color : rgba(255, 255, 255, 0.629) !important;
+   
+    
+    -fx-text-fill : white;
+    -fx-border-color : rgb(255, 200, 113);
+    -fx-background-radius : 20px 20px;
+    -fx-border-radius : 20px 20px;
 
+
+}
+
+.marque
+{
+    -fx-background-color:rgba(140, 142, 135, 0.879);
+    -fx-background-radius: 20px 20px;
+    -fx-border-color:white;
+    -fx-border-radius : 20px 20px ;
+}
 .fond
 {
-
+    
     -fx-background-color: linear-gradient(to right,rgb(41, 35, 57),rgb(25, 30, 84),rgb(21, 7, 91),rgb(65, 4, 70),rgb(0, 36, 52),rgb(38, 38, 38));
 }
 

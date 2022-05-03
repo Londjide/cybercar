@@ -20,6 +20,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -88,7 +90,19 @@ public class controllerAchat implements Initializable {
 
 
 	
+	@FXML
+    private RadioMenuItem Plaisance;
+	@FXML
+    private RadioMenuItem phoenix;
 
+    @FXML
+    private RadioMenuItem portLouis;
+    
+    @FXML
+    private MenuButton entrepot;
+    
+    @FXML
+    private RadioMenuItem bTombeau;
 
     @FXML
     private Text CPrix;
@@ -1393,10 +1407,77 @@ public class controllerAchat implements Initializable {
     @FXML
     void onValide(ActionEvent event) {
     	
+    	if(!nbrVoiture.getText().equals("0"))
+    	{
+    		ShowPanier();
     	
-    	ShowPanier();
+    	}else
+    	{
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("panier vide");
+    		alert.setHeaderText("information");
+    		alert.setContentText("votre panier est vide");
+    		alert.showAndWait();
+    		
+    	}
+    	
+    	
 
     }
+    
+    
+
+    @FXML
+    void onVm(ActionEvent event) {
+    	
+    	
+		adminController adminController = new adminController();
+		adminController.onVm(event);
+    	
+
+    }
+   
+    @FXML
+    void onCommande(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onLogout(ActionEvent event) {
+
+    }
+    @FXML
+    void onRh(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSuivi(ActionEvent event) {
+
+    }
+    
+    
+    @FXML
+    void getByBaie(ActionEvent event) {
+
+    }
+
+    @FXML
+    void getByPh(ActionEvent event) {
+
+    }
+
+    @FXML
+    void getByPlais(ActionEvent event) {
+
+    }
+
+    @FXML
+    void getByPort(ActionEvent event) {
+
+    }
+
+    
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
@@ -1419,6 +1500,8 @@ public class controllerAchat implements Initializable {
 			suppT.setDisable(true);
 			suppTo.setDisable(true);
 			suppC.setDisable(true);
+			nbrVoiture.setText("0");
+			total.setText("0");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

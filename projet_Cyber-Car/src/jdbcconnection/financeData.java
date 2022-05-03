@@ -485,6 +485,8 @@ public class financeData
 	            	remise.add(rs.getDouble("ramise"));
 	            
 	            	
+	            	
+	            	
 	            	adminController.Transaction = transaction;
 	            	adminController.Date = date;
 	            	adminController.Montant = montant;
@@ -533,8 +535,98 @@ public class financeData
 		
 	}
 	
+	public static void getRapportByDate(String du,String au)
 	
+	{
+
+		ArrayList<Integer> transaction = new ArrayList<Integer>();
+		ArrayList<String> date = new ArrayList<String>();
+		ArrayList<Double> montant = new ArrayList<Double>();
+		ArrayList<Double> remise = new ArrayList<Double>();
+		
+		String query = "{ call RapportPeriodique(?,?) }";
+		ResultSet rs;
+	       
+
+        try {
+        	
+        		Connection conn = ConnectoDataBase.getConnection();
+                CallableStatement stmt = conn.prepareCall(query);
+                stmt.setString(1, du);
+                stmt.setString(2,au);
+                rs = stmt.executeQuery();
+                
+                while(rs.next())
+                {
+                	transaction.add(rs.getInt("idclients"));
+	            	date.add(rs.getString("dateDachat"));
+	            	montant.add(rs.getDouble("montant"));
+	            	remise.add(rs.getDouble("ramise"));
+	            
+	            
+	        
+	            	
+	            	
+	            	adminController.Transaction = transaction;
+	            	adminController.Date = date;
+	            	adminController.Montant = montant;
+	            	adminController.Remise = remise;
+                	
+                }
+                
+        
+        	
+        	}
+        		
+       catch (SQLException ex) {
+    	   
+    	Alert alert = new Alert(AlertType.INFORMATION);
+   		alert.setWidth(600);
+   		alert.setHeight(600);
+   		alert.setTitle("LA COMMANDE");
+   		alert.setHeaderText("etat de la commande");
+   		alert.setContentText("une Erreur s'est produite =>>>"+ex.getMessage());
+   		alert.showAndWait();
+            //System.out.println(ex.getMessage());
+        }
+		
+	}
+		
+	public static void getEmmployeeData()
+	{
+		
+		String query = "{ call GetEmployee() }";
+        ResultSet rs;
+
+        try (Connection conn = ConnectoDataBase.getConnection();
+             CallableStatement stmt = conn.prepareCall(query))
+        {
+            rs = stmt.executeQuery();
+            while(rs.next())
+            {
+            	adminController.Nom.add(rs.getString("nom"));
+            	adminController.Prenom.add(rs.getString("prenom"));
+            	adminController.nJeuneFille.add(rs.getString("nomDeJeuneFille"));
+            	adminController.Civilite.add(rs.getString("civilite"));
+            	adminController.NbrEnfant.add(rs.getString("nbr enfant"));
+            	adminController.Fonction.add(rs.getString("fonction"));
+            	adminController.Dembauche.add(rs.getString("date_embauche"));
+            	adminController.CongRestant.add(rs.getString("nbr_de_conge_restant"));
+            	adminController.Fcontrat.add(rs.getString("date_fin_de_contrat"));
+            	adminController.Adresse.add(rs.getString("adresse"));
+            	adminController.Ntel.add(rs.getString("tel"));
+            	adminController.Email.add(rs.getString("email"));
+            	
+            	
+        
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
 	
+		
+	}
 	
 
 }

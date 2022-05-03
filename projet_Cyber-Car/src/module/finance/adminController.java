@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -35,7 +34,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TouchEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import jdbcconnection.financeData;
@@ -43,6 +41,7 @@ import jdbcconnection.financeData;
 public class adminController implements Initializable {
 	
 
+	
 	public static ArrayList<String> DateR = new ArrayList<String>();
 	public static ArrayList<Integer> nbrVenteR = new ArrayList<Integer>();
 	public static ArrayList<Number> chiffreR = new ArrayList<Number>();
@@ -56,6 +55,29 @@ public class adminController implements Initializable {
 	public static ArrayList<Double> Remise = new ArrayList<Double>();
 	
 	
+	public static ArrayList<String> Nom = new ArrayList<String>();
+	public static ArrayList<String> Prenom  = new ArrayList<String>();
+	public static ArrayList<String> nJeuneFille = new ArrayList<String>();
+	public static ArrayList<String> Civilite = new ArrayList<String>();
+	public static ArrayList<String> NbrEnfant = new ArrayList<String>();
+	public static ArrayList<String> Fonction = new ArrayList<String>();
+	public static ArrayList<String> Dembauche = new ArrayList<String>();
+	public static ArrayList<String> CongRestant = new ArrayList<String>();
+	public static ArrayList<String> Fcontrat = new ArrayList<String>();
+	public static ArrayList<String> Adresse = new ArrayList<String>();
+	public static ArrayList<String> Ntel = new ArrayList<String>();
+	public static ArrayList<String> Email = new ArrayList<String>();
+	
+	
+	
+	
+	
+	
+	
+	
+	@FXML
+	private Button lancerR;
+	
     @FXML
     private Button logOut;
 
@@ -63,21 +85,22 @@ public class adminController implements Initializable {
     private TextField Nsuivi;
     
     @FXML
-    private TabPane selection;
+    public static TabPane selection;
 
-    @FXML
+	@FXML
     private TextField Ntransaction;
 
     @FXML
     private TextField Resmise;
 
     @FXML
-    private Button Vm;
+    public static Button Vm;
 
     @FXML
     private Tab acceuils;
     
-    @FXML
+
+	@FXML
     private CategoryAxis abs;
     
     @FXML
@@ -85,7 +108,7 @@ public class adminController implements Initializable {
  
 
     @FXML
-    private TableColumn<?, ?> adresse;
+    private TableColumn<Profiles,String> adresse;
 
     @FXML
     private DatePicker auVente;
@@ -97,7 +120,7 @@ public class adminController implements Initializable {
     private Text chifreVente;
 
     @FXML
-    private TableColumn<?, ?> civilite;
+    private TableColumn<Profiles,String> civilite;
 
     @FXML
     private Button commande;
@@ -106,13 +129,13 @@ public class adminController implements Initializable {
     private Text commendeEncours;
 
     @FXML
-    private TableColumn<?, ?> congRestant;
+    private TableColumn<Profiles,String> congRestant;
 
     @FXML
     private Text credit;
 
     @FXML
-    private TableColumn<?, ?> dEmbauche;
+    private TableColumn<Profiles,String> dEmbauche;
 
     @FXML
     private TableColumn<Vente , String> date;
@@ -127,13 +150,13 @@ public class adminController implements Initializable {
     private DatePicker duVente;
 
     @FXML
-    private TableColumn<?, ?> email;
+    private TableColumn<Profiles,String> email;
 
     @FXML
-    private TableColumn<?, ?> finContrat;
+    private TableColumn<Profiles,String> finContrat;
 
     @FXML
-    private TableColumn<?, ?> fonction;
+    private TableColumn<Profiles,String> fonction;
 
     @FXML
     private Text logDate;
@@ -145,19 +168,19 @@ public class adminController implements Initializable {
     private Text nbEmployee;
 
     @FXML
-    private TableColumn<?, ?> nbrEnfant;
+    private TableColumn<Profiles,String> nbrEnfant;
 
     @FXML
     private Text nbrVente;
 
     @FXML
-    private TableColumn<?, ?> ndf;
+    private TableColumn<Profiles,String> ndf;
 
     @FXML
-    private TableColumn<?, ?> nom;
+    private TableColumn<Profiles,String> nom;
 
     @FXML
-    private TableColumn<?, ?> prenom;
+    private TableColumn<Profiles,String> prenom;
 
     @FXML
     private Button rapport;
@@ -193,16 +216,19 @@ public class adminController implements Initializable {
     private TableView<Vente> table;
 
     @FXML
-    private TableColumn<?, ?> tel;
+    private TableColumn<Profiles,String> tel;
 
     @FXML
     private Text totalVente;
 
     @FXML
     private TableColumn<Vente , Number> transaction;
+    
+    @FXML
+    private TableView<Profiles> tableRh;
 
     @FXML
-    private Tab ventte;
+    private static Tab ventte;
     
    
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -235,8 +261,58 @@ public class adminController implements Initializable {
 
     }
     
+    /**
+     * 
+     */
+    void tableRhLaunch()
+    {
+		
+		  ObservableList<Profiles>data = FXCollections.observableArrayList();
+		  
+		  
+
+		
+			 
+		  data.add(new Profiles(
+				  Nom.get(0),
+				  Prenom.get(0),
+				  nJeuneFille.get(0),
+				  Civilite.get(0),
+				  NbrEnfant.get(0),
+				  Fonction.get(0),
+				  Dembauche.get(0),
+				  CongRestant.get(0),
+				  Fcontrat.get(0),
+				  Adresse.get(0),
+				  Ntel.get(0),
+				  Email.get(0))); 
+		  
+		 
+		  System.out.println(data);
+		  
+		  
+		  nom.setCellValueFactory(new PropertyValueFactory<Profiles, String>("nom"));
+		  prenom.setCellValueFactory(new PropertyValueFactory<Profiles,String>("prenom"));
+		  ndf.setCellValueFactory(new PropertyValueFactory<Profiles, String>("NjeuneFille"));
+		  civilite.setCellValueFactory(new PropertyValueFactory<Profiles,String>("civilite"));
+		  nbrEnfant.setCellValueFactory(new PropertyValueFactory<Profiles, String>("nbrEnfant"));
+		  fonction.setCellValueFactory(new PropertyValueFactory<Profiles, String>("fonction"));
+		  dEmbauche.setCellValueFactory(new PropertyValueFactory<Profiles,String>("Dembauche"));
+		  congRestant.setCellValueFactory(new PropertyValueFactory<Profiles, String>("ConRestant"));
+		  finContrat.setCellValueFactory(new PropertyValueFactory<Profiles,String>("Fcontrat")); 
+		  adresse.setCellValueFactory(new PropertyValueFactory<Profiles, String>("Adresse"));
+		  tel.setCellValueFactory(new PropertyValueFactory<Profiles, String>("Ntel"));
+		  email.setCellValueFactory(new PropertyValueFactory<Profiles,String>("email"));
+		  
+		  tableRh.setItems(data);
+		  
+		 
+    }
+    
+    
     void tableVenteLaunch()
     {
+    	
     	ObservableList<Vente>data = FXCollections.observableArrayList();
     	
     	for(int i=0;i<Transaction.size();i++)
@@ -249,6 +325,7 @@ public class adminController implements Initializable {
     	mpayer.setCellValueFactory(new PropertyValueFactory<Vente,Number>("montant"));
     	remiseA.setCellValueFactory(new PropertyValueFactory<Vente,Number>("remise"));
     	table.setItems(data);
+    	
     	
     }
     
@@ -266,12 +343,7 @@ public class adminController implements Initializable {
     	
     }
 
-    @FXML
-    void onRapport(ActionEvent event) {
-    	
-    	selection.getSelectionModel().select(shop);
-
-    }
+   
 
     @FXML
     void onRh(ActionEvent event) {
@@ -360,10 +432,24 @@ public class adminController implements Initializable {
 
 
     @FXML
-    void onVm(ActionEvent event) {
+	 void onVm(ActionEvent event)
+    {
+    	
     	selection.getSelectionModel().select(ventte);
+    	System.out.println(selection.getSelectionModel().getSelectedItem());
+    	
+    }
+    @FXML
+    void onLanceR(ActionEvent event) 
+    {
+    	//System.out.println(duVente.getValue().toString());
+    	
+    	financeData.getRapportByDate(duVente.getValue().toString(),auVente.getValue().toString());
+    	tableVenteLaunch();
 
     }
+   
+    
 
 
 
@@ -376,9 +462,12 @@ public class adminController implements Initializable {
 		{
 			financeData.getDataRapport();
 			financeData.getDepVente();
+			financeData.getEmmployeeData();
+			
 			
 			graphiqueLauch();
 			tableVenteLaunch();
+			tableRhLaunch();
 			
 			
 			
@@ -390,7 +479,9 @@ public class adminController implements Initializable {
 			this.nbEmployee.setText(String.valueOf(financeData.totalEmployee()));
 			this.stock.setText(String.valueOf(financeData.getVoitureEnStock()));
 			this.totalVente.setText(String.valueOf(financeData.getTotalVente()));
+			this.nbrVente.setText(String.valueOf(financeData.getTotalVente()));
 			this.chiffreAffaire.setText(String.valueOf(financeData.getChiffreDaffaire()));
+			this.chifreVente.setText(String.valueOf(financeData.getChiffreDaffaire()));
 			
 			
 			
