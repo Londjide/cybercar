@@ -66,6 +66,7 @@ public class financeData
 	            	
 	        
 	            }
+	            rs.close();
 	            return true;
 	            
 	        } catch (SQLException ex) {
@@ -123,7 +124,7 @@ public class financeData
 	            	
 	        
 	            }
-	            
+	            rs.close();
 	            return true;
 	            
 	        } catch (SQLException ex) {
@@ -177,6 +178,7 @@ public class financeData
 	            	
 	        
 	            }
+	            rs.close();
 	            return true;
 	            
 	        } catch (SQLException ex) {
@@ -230,7 +232,7 @@ public class financeData
 	            	
 	        
 	            }
-	            
+	            rs.close();
 	            return true;
 	        } catch (SQLException ex) {
 	            System.out.println(ex.getMessage());
@@ -255,7 +257,9 @@ public class financeData
 	        {
 	            rs = stmt.executeQuery();
 	            if(rs.next())
+	            	
 	            	return rs.getInt("ChifreDaffaire");
+	            	rs.close();
 	        } catch (SQLException ex) {
 	            System.out.println(ex.getMessage());
 	        }
@@ -280,6 +284,7 @@ public class financeData
             rs = stmt.executeQuery();
             if(rs.next())
             	return rs.getInt("total");
+            	rs.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -302,7 +307,9 @@ public class financeData
         {
             rs = stmt.executeQuery();
             if(rs.next())
+            	
             	return rs.getInt("nbrComande");
+            	rs.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -327,6 +334,7 @@ public class financeData
             rs = stmt.executeQuery();
             if(rs.next())
             	return rs.getInt("nbremployee");
+            	rs.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -351,6 +359,7 @@ public class financeData
             rs = stmt.executeQuery();
             if(rs.next())
             	return rs.getInt("stockVoiture");
+            	rs.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -381,6 +390,7 @@ public class financeData
             rs = stmt.executeQuery();
             if(rs.next())
             	return rs;
+            	rs.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -408,6 +418,7 @@ public class financeData
                 stmt.setInt(3, entrepot);
                 stmt.execute();
                 
+                stmt.close();
         
         	
         	}
@@ -441,6 +452,7 @@ public class financeData
             rs = stmt.executeQuery();
             if(rs.next())
             	return rs.getInt("Nsuivi")+1;
+            	rs.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -475,6 +487,7 @@ public class financeData
                 stmt.setInt(3, Quantite);
                 stmt.setInt(4, entrepot);
                 stmt.execute();
+                stmt.close();
                 
 				/*
 				 * Alert alert = new Alert(AlertType.INFORMATION); alert.setWidth(600);
@@ -536,7 +549,9 @@ public class financeData
 
 	        
 	            }
+	            rs.close();
 	           return true; 
+	           
 	        } catch (SQLException ex) {
 	            System.out.println(ex.getMessage());
 	            return false;
@@ -582,7 +597,7 @@ public class financeData
 
 	        
 	            }
-	            
+	            rs.close();
 	            return true;
 	            
 	        } catch (SQLException ex) {
@@ -613,6 +628,7 @@ public class financeData
                 stmt.setDouble(2,Remise);
              
                 stmt.execute();
+                stmt.close();
                 
                 
     	}
@@ -663,6 +679,7 @@ public class financeData
 	            	date.add(rs.getString("dateDachat"));
 	            	montant.add(rs.getDouble("montant"));
 	            	remise.add(rs.getDouble("ramise"));
+	            	
 	            
 	            
 	        
@@ -674,6 +691,7 @@ public class financeData
 	            	adminController.Remise = remise;
                 	
                 }
+                rs.close();
                 
         
         	
@@ -724,6 +742,7 @@ public class financeData
             	
         
             }
+            rs.close();
             return true;
         } catch (SQLException ex) {
         	
