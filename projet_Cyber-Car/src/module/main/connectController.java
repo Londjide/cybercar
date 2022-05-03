@@ -22,6 +22,10 @@ public class connectController extends Application{
 	
 	
 	
+	/**
+	 * Cretion de la premiere fenetre de connexion
+	 * @param PageAuthentification initialisation de la fenetre Stage
+	 */
 	@Override
 	public void start(Stage PageAuthentification) throws Exception {
 		
@@ -51,6 +55,11 @@ public class connectController extends Application{
     @FXML
     private TextField mdp;
 
+    /**
+     * Action sur le button se connecter  et attribution interface en fonction des role
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void OnConnect(ActionEvent event) throws IOException
     {

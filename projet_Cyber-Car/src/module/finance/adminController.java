@@ -38,41 +38,66 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import jdbcconnection.financeData;
 
+/**
+ * @author MROIVILI MOUSTOIFA 
+ * Cette Class est un controleur de l'interface Graphique en fxml , permet d'interagir avec ce dernier pour l'affichage de donnée ou la saisi de donnée 
+ *
+ */
 public class adminController implements Initializable {
 	
 
 	
-	public static ArrayList<String> DateR = new ArrayList<String>();
-	public static ArrayList<Integer> nbrVenteR = new ArrayList<Integer>();
-	public static ArrayList<Number> chiffreR = new ArrayList<Number>();
 	
-	
-	
-	
-	public static ArrayList<Integer> Transaction = new ArrayList<Integer>();
-	public static ArrayList<String> Date = new ArrayList<String>();
-	public static ArrayList<Double> Montant = new ArrayList<Double>();
-	public static ArrayList<Double> Remise = new ArrayList<Double>();
-	
-	
-	public static ArrayList<String> Nom = new ArrayList<String>();
-	public static ArrayList<String> Prenom  = new ArrayList<String>();
-	public static ArrayList<String> nJeuneFille = new ArrayList<String>();
-	public static ArrayList<String> Civilite = new ArrayList<String>();
-	public static ArrayList<String> NbrEnfant = new ArrayList<String>();
-	public static ArrayList<String> Fonction = new ArrayList<String>();
-	public static ArrayList<String> Dembauche = new ArrayList<String>();
-	public static ArrayList<String> CongRestant = new ArrayList<String>();
-	public static ArrayList<String> Fcontrat = new ArrayList<String>();
-	public static ArrayList<String> Adresse = new ArrayList<String>();
-	public static ArrayList<String> Ntel = new ArrayList<String>();
-	public static ArrayList<String> Email = new ArrayList<String>();
+
 	
 	
 	
 	
 	
 	
+	
+	
+	/**
+	 * 															tout les declaration d'attribut
+	 * -------------------------------------------------------------------⬇︎⬇︎⬇︎⬇︎⬇︎⬇︎⬇︎⬇︎------------------------------------------------------------------
+	 */
+	
+	
+	
+	public static ArrayList<String> DateR = new ArrayList<String>(); // donnee du graphique pour l'affichage du graphique acceuil
+	public static ArrayList<Integer> nbrVenteR = new ArrayList<Integer>();// donnee du graphique pour l'affichage du graphique acceuil
+	public static ArrayList<Number> chiffreR = new ArrayList<Number>();// donnee du graphique pour l'affichage du graphique acceuil
+	
+	
+	
+	
+	
+	
+	
+	
+	public static ArrayList<Integer> Transaction = new ArrayList<Integer>(); // donnee du tableau departement Vente 
+	public static ArrayList<String> Date = new ArrayList<String>();// donnee du tableau departement Vente 
+	public static ArrayList<Double> Montant = new ArrayList<Double>();// donnee du tableau departement Vente 
+	public static ArrayList<Double> Remise = new ArrayList<Double>();// donnee du tableau departement Vente 
+	
+	
+	
+	
+
+	
+	
+	public static ArrayList<String> Nom = new ArrayList<String>(); // donnee du tableau departement Ressources Humaines
+	public static ArrayList<String> Prenom  = new ArrayList<String>();// donnee du tableau departement Ressources Humaines
+	public static ArrayList<String> nJeuneFille = new ArrayList<String>();// donnee du tableau departement Ressources Humaines
+	public static ArrayList<String> Civilite = new ArrayList<String>();// donnee du tableau departement Ressources Humaines
+	public static ArrayList<String> NbrEnfant = new ArrayList<String>();// donnee du tableau departement Ressources Humaines
+	public static ArrayList<String> Fonction = new ArrayList<String>();// donnee du tableau departement Ressources Humaines
+	public static ArrayList<String> Dembauche = new ArrayList<String>();// donnee du tableau departement Ressources Humaines
+	public static ArrayList<String> CongRestant = new ArrayList<String>();// donnee du tableau departement Ressources Humaines
+	public static ArrayList<String> Fcontrat = new ArrayList<String>();// donnee du tableau departement Ressources Humaines
+	public static ArrayList<String> Adresse = new ArrayList<String>();// donnee du tableau departement Ressources Humaines
+	public static ArrayList<String> Ntel = new ArrayList<String>();// donnee du tableau departement Ressources Humaines
+	public static ArrayList<String> Email = new ArrayList<String>();// donnee du tableau departement Ressources Humaines
 	
 	
 	@FXML
@@ -98,7 +123,6 @@ public class adminController implements Initializable {
 
     @FXML
     private Tab acceuils;
-    
 
 	@FXML
     private CategoryAxis abs;
@@ -230,7 +254,24 @@ public class adminController implements Initializable {
     @FXML
     private static Tab ventte;
     
+    
+    
+    /**
+	 * 															tout les declaration d'attribut
+	 * -------------------------------------------------------------------⬆︎⬆︎⬆︎⬆︎⬆︎⬆︎⬆︎⬆︎⬆︎------------------------------------------------------------------
+	 */
+    
+    
+    
+    
+    
    
+    /**
+     * @throws ParseException 
+     * 
+     * graphique dans le tableau de bord pour avoir un aperçu des donnée
+     * 
+     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	void graphiqueLauch() throws ParseException
     {
@@ -245,24 +286,34 @@ public class adminController implements Initializable {
     	for(int i = 0;i<DateR.size();i++)
     	{
     
-    		series.getData().add(new XYChart.Data(DateR.get(i), chiffreR.get(i)));
+    		series.getData().add(new XYChart.Data(DateR.get(i), chiffreR.get(i))); // ajout des données du graphique 
     	}
-    	diagram.lookup(".chart-plot-background").setStyle("-fx-background-color:transparent");
+    	diagram.lookup(".chart-plot-background").setStyle("-fx-background-color:transparent"); // style du graphique 
  
-    	diagram.getData().add(series);
+    	diagram.getData().add(series);// attribution des donnée dans le graphique 
     	
    }
     
     
+    /**
+     * @param event 
+     * clic sur onglet Commander
+     */
     @FXML
-    void onCommande(ActionEvent event) {
+    void onCommande(ActionEvent event)
+    {
     	
-    	selection.getSelectionModel().select(shop);
+    	selection.getSelectionModel().select(shop); // direction Commander Voiture
 
     }
     
     /**
      * 
+     *  
+     *  Creation de la table contenant les donnée du Departement Ressources Humaines 
+     *  ObservableList est une Collection  qui vas contenir des objet de Types Profiles
+     *  
+     *   
      */
     void tableRhLaunch()
     {
@@ -285,31 +336,36 @@ public class adminController implements Initializable {
 				  Fcontrat.get(0),
 				  Adresse.get(0),
 				  Ntel.get(0),
-				  Email.get(0))); 
+				  Email.get(0))); // ajout des donnne contenue dans les arrayList du Rh
 		  
 		 
-		  System.out.println(data);
+		
 		  
 		  
-		  nom.setCellValueFactory(new PropertyValueFactory<Profiles, String>("nom"));
-		  prenom.setCellValueFactory(new PropertyValueFactory<Profiles,String>("prenom"));
-		  ndf.setCellValueFactory(new PropertyValueFactory<Profiles, String>("NjeuneFille"));
-		  civilite.setCellValueFactory(new PropertyValueFactory<Profiles,String>("civilite"));
-		  nbrEnfant.setCellValueFactory(new PropertyValueFactory<Profiles, String>("nbrEnfant"));
-		  fonction.setCellValueFactory(new PropertyValueFactory<Profiles, String>("fonction"));
-		  dEmbauche.setCellValueFactory(new PropertyValueFactory<Profiles,String>("Dembauche"));
-		  congRestant.setCellValueFactory(new PropertyValueFactory<Profiles, String>("ConRestant"));
-		  finContrat.setCellValueFactory(new PropertyValueFactory<Profiles,String>("Fcontrat")); 
-		  adresse.setCellValueFactory(new PropertyValueFactory<Profiles, String>("Adresse"));
-		  tel.setCellValueFactory(new PropertyValueFactory<Profiles, String>("Ntel"));
-		  email.setCellValueFactory(new PropertyValueFactory<Profiles,String>("email"));
+		  nom.setCellValueFactory(new PropertyValueFactory<Profiles, String>("nom")); // assocition de la colone au donneée de l'objet
+		  prenom.setCellValueFactory(new PropertyValueFactory<Profiles,String>("prenom"));// assocition de la colone au donneée de l'objet
+		  ndf.setCellValueFactory(new PropertyValueFactory<Profiles, String>("NjeuneFille"));// assocition de la colone au donneée de l'objet
+		  civilite.setCellValueFactory(new PropertyValueFactory<Profiles,String>("civilite"));// assocition de la colone au donneée de l'objet
+		  nbrEnfant.setCellValueFactory(new PropertyValueFactory<Profiles, String>("nbrEnfant"));// assocition de la colone au donneée de l'objet
+		  fonction.setCellValueFactory(new PropertyValueFactory<Profiles, String>("fonction"));// assocition de la colone au donneée de l'objet
+		  dEmbauche.setCellValueFactory(new PropertyValueFactory<Profiles,String>("Dembauche"));// assocition de la colone au donneée de l'objet
+		  congRestant.setCellValueFactory(new PropertyValueFactory<Profiles, String>("ConRestant"));// assocition de la colone au donneée de l'objet
+		  finContrat.setCellValueFactory(new PropertyValueFactory<Profiles,String>("Fcontrat")); // assocition de la colone au donneée de l'objet
+		  adresse.setCellValueFactory(new PropertyValueFactory<Profiles, String>("Adresse"));// assocition de la colone au donneée de l'objet
+		  tel.setCellValueFactory(new PropertyValueFactory<Profiles, String>("Ntel"));// assocition de la colone au donneée de l'objet
+		  email.setCellValueFactory(new PropertyValueFactory<Profiles,String>("email"));// assocition de la colone au donneée de l'objet
 		  
-		  tableRh.setItems(data);
+		  tableRh.setItems(data); // assignation des donnée des l'objet à la table 
 		  
 		 
     }
     
     
+    /**
+     * Creation de la table contenant les donnée du Departement Vente 
+     * ObservableList est une Collection  qui vas contenir des objet de Types Vente
+     * la boucle pour qui vas ajouter a tour de role chaque objet a creer 
+     */
     void tableVenteLaunch()
     {
     	
@@ -317,14 +373,14 @@ public class adminController implements Initializable {
     	
     	for(int i=0;i<Transaction.size();i++)
     	{
-    		data.add(new Vente(Transaction.get(i),Date.get(i),Montant.get(i),Remise.get(i)));
+    		data.add(new Vente(Transaction.get(i),Date.get(i),Montant.get(i),Remise.get(i)));// ajout des donnne contenue dans les arrayList de la vente 
     	}
     	
-    	transaction.setCellValueFactory(new PropertyValueFactory<Vente,Number>("reference"));
-    	date.setCellValueFactory(new PropertyValueFactory<Vente,String>("date"));
-    	mpayer.setCellValueFactory(new PropertyValueFactory<Vente,Number>("montant"));
-    	remiseA.setCellValueFactory(new PropertyValueFactory<Vente,Number>("remise"));
-    	table.setItems(data);
+    	transaction.setCellValueFactory(new PropertyValueFactory<Vente,Number>("reference"));// assocition de la colone au donneée de l'objet
+    	date.setCellValueFactory(new PropertyValueFactory<Vente,String>("date"));// assocition de la colone au donneée de l'objet
+    	mpayer.setCellValueFactory(new PropertyValueFactory<Vente,Number>("montant"));// assocition de la colone au donneée de l'objet
+    	remiseA.setCellValueFactory(new PropertyValueFactory<Vente,Number>("remise"));// assocition de la colone au donneée de l'objet
+    	table.setItems(data);// assignation des donnée des l'objet à la table 
     	
     	
     }
@@ -453,17 +509,21 @@ public class adminController implements Initializable {
 
 
 
+	/**
+	 * La methode initialize provient de L'interface Initializable, elle permet de lancer dès le lancement de l'application tout les donnée necessaires informative 
+	 * dans l'interface
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		
+		// on lance tout les methode d'affichage de donnée 
 		
 		try
 		{
 			financeData.getDataRapport();
 			financeData.getDepVente();
 			financeData.getEmmployeeData();
-			
 			
 			graphiqueLauch();
 			tableVenteLaunch();
@@ -473,15 +533,16 @@ public class adminController implements Initializable {
 			
 			
 			
-			this.acceuils.setClosable(false);
-			this.credit.setText(String.valueOf(financeData.getChiffreDaffaire())+" "+"rs");
-			this.commendeEncours.setText(String.valueOf(financeData.nombrCommande())+" ");
-			this.nbEmployee.setText(String.valueOf(financeData.totalEmployee()));
-			this.stock.setText(String.valueOf(financeData.getVoitureEnStock()));
+			this.acceuils.setClosable(false); // empeche l'onglet acceuil d'etre fermer 
+			this.credit.setText(String.valueOf(financeData.getChiffreDaffaire())+" "+"rs"); //affiche le credit 
+			this.commendeEncours.setText(String.valueOf(financeData.nombrCommande())+" "); // afiche commande en cours 
+			this.nbEmployee.setText(String.valueOf(financeData.totalEmployee())); // total employee
+			this.stock.setText(String.valueOf(financeData.getVoitureEnStock())); // stock disponible
 			this.totalVente.setText(String.valueOf(financeData.getTotalVente()));
 			this.nbrVente.setText(String.valueOf(financeData.getTotalVente()));
 			this.chiffreAffaire.setText(String.valueOf(financeData.getChiffreDaffaire()));
 			this.chifreVente.setText(String.valueOf(financeData.getChiffreDaffaire()));
+			
 			
 			
 			

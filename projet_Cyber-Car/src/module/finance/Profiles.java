@@ -2,6 +2,12 @@ package module.finance;
 
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * @author MROIVILI MOUSTOIFA
+ * 
+ * creation d'objet de type profile pour l'affichage du tableau dep Rh 
+ *
+ */
 public class Profiles
 {
 	private final SimpleStringProperty nom;

@@ -5,6 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
+/**
+ * @author Mroivili Moustoifa 
+ * La ConnectoDataBase permet de se connecter à la base de donnée en renseignant les identifiant et mot de passe
+ *
+ */
 public class ConnectoDataBase
 {
 

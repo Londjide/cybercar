@@ -13,11 +13,22 @@ import module.finance.adminController;
 import module.finance.controllerAchat;
 
 
+/**
+ * @author MROIVILI MOUSTOIFA 
+ * 
+ * Cette class est la classe qui gere les donnée de la partie admin via des procedure stockées
+ *
+ */
 public class financeData
 {
 	
 	
-	public static void getAllVoitureRenault() throws SQLException
+	/**
+	 * cette methode permet avec un procedure stockée de prendre tout les voiture Renault dans la base de donnée ;
+	 * @return true si les donnée ont bien ete reçu false sinon;
+	 * @throws SQLException
+	 */
+	public static boolean getAllVoitureRenault() throws SQLException
 	{
 		ArrayList<String> imgCar = new ArrayList<String>();
 		ArrayList<String> prixCar = new ArrayList<String>();
@@ -55,16 +66,24 @@ public class financeData
 	            	
 	        
 	            }
+	            return true;
 	            
 	        } catch (SQLException ex) {
 	            System.out.println(ex.getMessage());
+	            return false;
 	        }
+			
 			
 			
 	
 	}
 
-	public static void getallvoitureTestla()throws SQLException
+	/**
+	 * cette methode permet avec un procedure stockée de prendre tout les voiture Tesla dans la base de donnée ;
+	 * @return true si les donnée ont bien ete reçu false sinon;
+	 * @throws SQLException
+	 */
+	public static boolean getallvoitureTestla()throws SQLException
 	{
 		ArrayList<String> imgCar = new ArrayList<String>();
 		ArrayList<String> prixCar = new ArrayList<String>();
@@ -105,14 +124,22 @@ public class financeData
 	        
 	            }
 	            
+	            return true;
+	            
 	        } catch (SQLException ex) {
 	            System.out.println(ex.getMessage());
+	            return false;
 	        }
 			
 		
 	}
 
-	public static void getallvoitureChevrolet()throws SQLException
+	/**
+	 * cette methode permet avec un procedure stockée de prendre tout les voiture Chevrolet dans la base de donnée ;
+	 * @return true si les donnée ont bien ete reçu false sinon;
+	 * @throws SQLException
+	 */
+	public static boolean getallvoitureChevrolet()throws SQLException
 	{
 		ArrayList<String> imgCar = new ArrayList<String>();
 		ArrayList<String> prixCar = new ArrayList<String>();
@@ -146,19 +173,26 @@ public class financeData
 	            	controllerAchat.setChevroletVitesse(VitesseCar);
 	   
 	            	
-	            
+	           
 	            	
 	        
 	            }
+	            return true;
 	            
 	        } catch (SQLException ex) {
 	            System.out.println(ex.getMessage());
+	            return false;
 	        }
 			
 		
 	}
 
-	public static void getallvoitureToyota()throws SQLException
+	/**
+	 * cette methode permet avec un procedure stockée de prendre tout les voiture Toyota dans la base de donnée ;
+	 * @return true si les donnée ont bien ete reçu false sinon;
+	 * @throws SQLException
+	 */
+	public static boolean getallvoitureToyota()throws SQLException
 	{
 		ArrayList<String> imgCar = new ArrayList<String>();
 		ArrayList<String> prixCar = new ArrayList<String>();
@@ -197,13 +231,20 @@ public class financeData
 	        
 	            }
 	            
+	            return true;
 	        } catch (SQLException ex) {
 	            System.out.println(ex.getMessage());
+	            return false;
 	        }
 			
 		
 	}
 	
+	/**
+	 * on appelle le chiffre d'affre reliser
+	 * @return le chifre d'affaire sinon 0 
+	 * @throws SQLException
+	 */
 	public static int getChiffreDaffaire() throws SQLException
 	{
 		   String query = "{ call chiffreDaffaire() }";
@@ -223,6 +264,11 @@ public class financeData
 	
 	}
 	
+	/**
+	 * on appele le total de vente 
+	 * @return le nombre total de vente 
+	 * @throws SQLException
+	 */
 	public static int getTotalVente() throws SQLException
 	{
 		String query = "{ call totalVente() }";
@@ -241,6 +287,10 @@ public class financeData
 		
 	}
 	
+	/**
+	 * @return le nombre de comande passer sinon 0 
+	 * @throws SQLException
+	 */
 	public static  int nombrCommande() throws SQLException
 	{
 		
@@ -260,6 +310,10 @@ public class financeData
 		
 	}
 	
+	/**
+	 * @return total d'employée sinon 0
+	 * @throws SQLException
+	 */
 	public static int totalEmployee() throws SQLException
 	{
 
@@ -280,6 +334,10 @@ public class financeData
 		
 	}
 	
+	/**
+	 * @return le nombre de voiture en stock sinon 0
+	 * @throws SQLException
+	 */
 	public static int getVoitureEnStock() throws SQLException
 	{
 
@@ -300,6 +358,10 @@ public class financeData
 		
 	}
 	
+	/**
+	 * @return derniere date de connexion 
+	 * @throws SQLException
+	 */
 	public void getDateConnectLast() throws SQLException
 	{
 
@@ -326,6 +388,12 @@ public class financeData
 		
 	}
 	
+	/**
+	 * methode pour mettre à jour le stock
+	 * @param id identifiant de la voiture 
+	 * @param quantite la quantite acheter 
+	 * @param entrepot dans quel entrepot ça part 
+	 */
 	public static void setUpdateStock(int id,int quantite,int entrepot)
 	{
 		String query = "{ call UpdateStock(?,?,?) }";
@@ -358,6 +426,9 @@ public class financeData
 		
 	}
 
+	/**
+	 * @return
+	 */
 	public static int generateNsuivi()
 	{
 		String query = "{ call LastID() }";
@@ -375,10 +446,20 @@ public class financeData
         }
 		return 0;
 	}
+	
+	
 
+	/**
+	 * 
+	 * cette methode envoie la commande passer dans la table de commande
+	 * 
+	 * @param idVoiture identifiant de la commander 	
+	 * @param nameCar nom de la voiture 
+	 * @param Quantite la quantite 
+	 * @param entrepot l'entrepôt ou ça part ! 
+	 */
 	public static void setCommande(int idVoiture,String nameCar,int Quantite,int entrepot)
 	{
-		
 		
 		
 		
@@ -422,7 +503,10 @@ public class financeData
 		
 	}
 	
-	public static void getDataRapport()
+	/**
+	 * @return true si valeur disponible sinon false 
+	 */
+	public static boolean getDataRapport()
 	{
 		ArrayList<String> date = new ArrayList<String>();
 		ArrayList<Integer> nbrVente = new ArrayList<Integer>();
@@ -452,14 +536,18 @@ public class financeData
 
 	        
 	            }
-	            
+	           return true; 
 	        } catch (SQLException ex) {
 	            System.out.println(ex.getMessage());
+	            return false;
 	        }
 		
 	}
 
-	public static void getDepVente()
+	/**
+	 * @return true si valeur disponible sinon false 
+	 */
+	public static boolean getDepVente()
 	{
 		
 		ArrayList<Integer> transaction = new ArrayList<Integer>();
@@ -495,14 +583,22 @@ public class financeData
 	        
 	            }
 	            
+	            return true;
+	            
 	        } catch (SQLException ex) {
 	            System.out.println(ex.getMessage());
+	            return false;
 	        }
 		
 
 		
 	}
 
+	/**
+	 * cette methode permet d'accorder une remise au client 
+	 * @param Transaction Numero de la transaction 
+	 * @param Remise Remise attribuer 
+	 */
 	public static void UpdateRemiseClient(int Transaction,Double Remise)
 	{
 		
@@ -535,6 +631,11 @@ public class financeData
 		
 	}
 	
+	/**
+	 * cette methode permet de creer un rapport periodique au niveau de la vente 
+	 * @param du date de depart 
+	 * @param au date de fin 
+	 */
 	public static void getRapportByDate(String du,String au)
 	
 	{
@@ -592,7 +693,10 @@ public class financeData
 		
 	}
 		
-	public static void getEmmployeeData()
+	/**
+	 * @return true les donnée disponible dans le departement Ressources Humaines  sinon false si y'en a pas ! 
+	 */
+	public static boolean getEmmployeeData()
 	{
 		
 		String query = "{ call GetEmployee() }";
@@ -620,10 +724,13 @@ public class financeData
             	
         
             }
-            
+            return true;
         } catch (SQLException ex) {
+        	
             System.out.println(ex.getMessage());
+            return false;
         }
+		
 	
 		
 	}
